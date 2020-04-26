@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #226979;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fo4ik.Controls.Controller">
+   <children>
+      <AnchorPane layoutY="72.0" prefHeight="348.0" prefWidth="612.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <TextField fx:id="login_input" layoutX="26.0" layoutY="98.0" prefHeight="25.0" prefWidth="274.0" promptText="login" />
+            <PasswordField fx:id="psw_input" layoutX="26.0" layoutY="152.0" prefHeight="25.0" prefWidth="274.0" promptText="Password" />
+            <Button fx:id="login_btn" layoutX="26.0" layoutY="228.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Войти" />
+            <Label layoutX="109.0" layoutY="33.0" text="Авторизация">
+               <font>
+                  <Font name="Gabriola" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="errors" layoutX="192.0" layoutY="201.0" prefHeight="80.0" prefWidth="108.0" />
+            <ImageView fitHeight="219.0" fitWidth="248.0" layoutX="338.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/login.gif" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <Button fx:id="go_to_signup_button" layoutX="458.0" layoutY="22.0" mnemonicParsing="false" onAction="#ToSignUp" text="Зарегистрироваться" />
+      <ImageView fitHeight="58.0" fitWidth="70.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="191.0" layoutY="-5.0" text="Be the Best" textFill="WHITE">
+         <font>
+            <Font name="Gabriola" size="65.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
