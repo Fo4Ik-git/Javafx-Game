@@ -4,3 +4,7 @@ Game.iml
 META-INF
 src/com/fo4ik/db/sqlite3.exe
 tmp.btb
+sqlite3.def
+sqlite3.dll
+sqlite3.exe
+btb.db

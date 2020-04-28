@@ -17,7 +17,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 
@@ -50,21 +49,22 @@ public class Controller {
     void initialize() {
         login_btn.setOnAction(event -> {
             DBHelper dbHelper = new DBHelper();
-            try{
+            try {
                 dbHelper.openDB();
                 ArrayList<String> list = dbHelper.getInfoUser(login_input.getText().trim());
                 errors.setText(list.get(1));
-                if(login_input.getText().trim().equals(list.get(1)) && psw_input.getText().trim().equals(list.get(2))){
+                if (login_input.getText().trim().equals(list.get(1)) && psw_input.getText().trim().equals(list.get(2))) {
                     File file = new File("tmp.btb");
                     FileWriter fr = new FileWriter("tmp.btb");
                     fr.write(list.get(1));
                     fr.close();
+
                     ToGame(event);
                 } else {
                     errors.setText("Неверные данные");
                 }
                 dbHelper.close();
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
@@ -78,6 +78,7 @@ public class Controller {
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(window);
         stage.show();
+
     }
 
     @FXML
@@ -87,6 +88,8 @@ public class Controller {
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(window);
         stage.show();
+
+
     }
 
 

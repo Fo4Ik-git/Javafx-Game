@@ -1,5 +1,6 @@
 package com.fo4ik;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.*;
@@ -10,14 +11,30 @@ public class DBHelper {
 
 
     Connection connection;
+    public Statement statement;
+
+    public void createDB() throws SQLException {
+        File file = new File("btb.db");
+
+        String CRAETE = "CREATE TABLE users (\n" +
+                "    id       INTEGER      PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                "    login    VARCHAR (30) NOT NULL,\n" +
+                "    password VARCHAR (30) NOT NULL,\n" +
+                "    xp       INT          NOT NULL,\n" +
+                "    lvl      INT          NOT NULL,\n" +
+                "    money    INT          NOT NULL\n" +
+                ")";
+        statement = connection.createStatement();
+        statement.execute(CRAETE);
+
+
+    }
 
     public void openDB() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(
-                    "jdbc:sqlite:src/com/fo4ik/db/btb.db");
-            //connection = DriverManager.getConnection(
-            //         "jdbc:sqlite:btb.db");
+                     "jdbc:sqlite:btb.db");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -27,8 +44,8 @@ public class DBHelper {
         try {
             String INSERT = "INSERT INTO users (login, password, xp, lvl, money) " +
                     "VALUES ('" + log + "', '" + pswd + "', '" + xp + "', '" + lvl + "', '" + money + "');";
-            Statement statment = connection.createStatement();
-            statment.executeUpdate(INSERT);
+            statement = connection.createStatement();
+            statement.executeUpdate(INSERT);
 
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());

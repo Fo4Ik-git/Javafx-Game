@@ -6,10 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class Main extends Application {
 
-    public static final String DB_URL = "jdbc:h2:C:/Users//Fo4Ik/JavaProjects/Game/src/com/fo4ik/db/db_btb";
-    public static final String DB_Driver = "org.h2.Driver";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,6 +25,16 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
+        try {
+            DBHelper dbHelper = new DBHelper();
+            dbHelper.openDB();
+            dbHelper.createDB();
+            dbHelper.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         launch(args);
     }
 }
