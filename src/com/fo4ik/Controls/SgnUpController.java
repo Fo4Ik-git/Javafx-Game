@@ -1,6 +1,6 @@
 package com.fo4ik.Controls;
 
-import com.fo4ik.Files;
+import com.fo4ik.DBHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,11 +43,16 @@ public class SgnUpController {
 
 
         signup_button.setOnAction(event -> {
+            DBHelper dbHelper = new DBHelper();
             if (!login_input.getText().equals("") || pswd_input.getText().equals("") || pswd_input2.getText().equals("")) {
                 if (pswd_input.getText().equals(pswd_input2.getText())) {
-                    String login = login_input.getText().trim();
-                    String pswd = pswd_input.getText().trim();
-                    Files.WriteFile(login,pswd);
+                    try {
+                        dbHelper.openDB();
+                        dbHelper.createUser(login_input.getText().trim(), pswd_input.getText().trim(), 10, 0, 100);
+                        dbHelper.close();
+                    } catch (Exception e){
+                        errors.setText("Пользователь уже создан");
+                    }
                     try {
                         ToMain(event);
                     } catch (IOException e) {
@@ -59,6 +64,7 @@ public class SgnUpController {
             } else {
                 errors.setText("Empty input");
             }
+
 
         });
 

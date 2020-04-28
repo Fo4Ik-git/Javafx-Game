@@ -1,5 +1,6 @@
 package com.fo4ik.Controls;
 
+import com.fo4ik.DBHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +12,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.Timer;
 
 
 public class Controller {
@@ -46,44 +49,25 @@ public class Controller {
     @FXML
     void initialize() {
         login_btn.setOnAction(event -> {
-            Timer timer = new Timer();
-            String login = login_input.getText().trim();
-            String pswd = psw_input.getText().trim();
-            ReadFiles(login);
-
-            File file = new File("tmp.btb");
-            try {
-                FileWriter writer = new FileWriter("tmp.btb");
-                writer.write(list.get(0) + "\n");
-                writer.write(list.get(1));
-                writer.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            String lg = list.get(0);
-            String pwd = list.get(1);
-
-
-            if (pswd.equals(pwd)) {
-                try {
-                    GameController gcm = new GameController();
-                    gcm.ReadFiles(login);
+            DBHelper dbHelper = new DBHelper();
+            try{
+                dbHelper.openDB();
+                ArrayList<String> list = dbHelper.getInfoUser(login_input.getText().trim());
+                errors.setText(list.get(1));
+                if(login_input.getText().trim().equals(list.get(1)) && psw_input.getText().trim().equals(list.get(2))){
+                    File file = new File("tmp.btb");
+                    FileWriter fr = new FileWriter("tmp.btb");
+                    fr.write(list.get(1));
+                    fr.close();
                     ToGame(event);
-                    gcm.ReadFiles(login);
-                    file.delete();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } else {
+                    errors.setText("Неверные данные");
                 }
-            } else {
-                errors.setText("Incorrect password");
+                dbHelper.close();
+            } catch (Exception e){
+                System.out.println(e.getMessage());
             }
         });
-    }
-
-    public void startReader(){
-        System.out.println("Login2 " + login_input.getText());
     }
 
 
@@ -103,24 +87,6 @@ public class Controller {
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(window);
         stage.show();
-    }
-
-    ArrayList<String> list = new ArrayList<String>();
-
-    public void ReadFiles(String login) {
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(login + ".btb"));
-            String str;
-
-            while ((str = reader.readLine()) != null) {
-                if (!str.isEmpty()) {
-                    list.add(str);
-                }
-            }
-        } catch (IOException e) {
-            errors.setText("User is not found");
-        }
     }
 
 
