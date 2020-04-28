@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.fo4ik.Controls.GameController">
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fo4ik.Controls.GameController">
     <children>
         <ImageView fitHeight="410.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../resources/game.png"/>
+                <Image url="@../resources/game.png" />
             </image>
         </ImageView>
-        <AnchorPane fx:id="game_scene" layoutY="66.0" prefHeight="336.0" prefWidth="608.0"
-                    style="-fx-background-color: #FFFFFF;"/>
+        <AnchorPane layoutX="380.0" layoutY="341.0" prefHeight="59.0" prefWidth="220.0">
+            <children>
+                <Button fx:id="play_btn" layoutX="157.0" layoutY="26.0" mnemonicParsing="false" text="Играть" />
+                <Button fx:id="settings_btn" layoutX="72.0" layoutY="26.0" mnemonicParsing="false" text="Настройки" />
+            <Button fx:id="shop_btn_main" layoutY="26.0" mnemonicParsing="false" text="Магазин" />
+            </children>
+        </AnchorPane>
         <AnchorPane prefHeight="59.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
             <children>
-                <Label layoutX="14.0" layoutY="14.0" text="XP:"/>
-                <Label layoutX="54.0" layoutY="14.0" prefHeight="17.0" prefWidth="33.0" fx:id="xp_text"/>
-                <Label layoutX="14.0" layoutY="40.0" text="Lvl:"/>
-                <Label fx:id="lvl_text" layoutX="54.0" layoutY="40.0" prefHeight="17.0" prefWidth="33.0"/>
+                <Label layoutX="14.0" layoutY="14.0" text="XP:" />
+                <Label layoutX="54.0" layoutY="14.0" prefHeight="17.0" prefWidth="33.0" fx:id="xp_text" />
+                <Label layoutX="14.0" layoutY="40.0" text="Lvl:" />
+                <Label fx:id="lvl_text" layoutX="54.0" layoutY="40.0" prefHeight="17.0" prefWidth="33.0" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="400.0" layoutY="341.0" prefHeight="59.0" prefWidth="200.0">
+        <AnchorPane fx:id="instruction_bg" layoutY="84.0" prefHeight="316.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
             <children>
-                <Button fx:id="play_btn" layoutX="127.0" layoutY="13.0" mnemonicParsing="false" text="Играть"/>
-                <Button fx:id="settings_btn" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" text="Настройки"/>
-                <Button fx:id="back_btn" layoutX="130.0" layoutY="13.0" mnemonicParsing="false" text="Назад"/>
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="instruction_bg" layoutY="84.0" prefHeight="316.0" prefWidth="200.0"
-                    style="-fx-background-color: #FFFFFF;">
-            <children>
-                <Label fx:id="instruction" layoutX="14.0" layoutY="14.0" text="Написать Инструкцию"/>
+                <Label fx:id="instruction" layoutX="14.0" layoutY="14.0" text="Написать Инструкцию" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="392.0" prefHeight="59.0" prefWidth="208.0" style="-fx-background-color: #FFFFFF;">
             <children>
-                <Label layoutX="14.0" layoutY="14.0" text="Login:"/>
-                <Label fx:id="name_text" layoutX="54.0" layoutY="9.0" prefHeight="26.0" prefWidth="75.0"/>
-                <Label layoutX="14.0" layoutY="36.0" text="Money:"/>
-                <Label fx:id="money_text" alignment="BOTTOM_LEFT" layoutX="66.0" layoutY="31.0" prefHeight="26.0"
-                       prefWidth="75.0"/>
+                <Label layoutX="14.0" layoutY="14.0" text="Login:" />
+                <Label fx:id="name_text" layoutX="54.0" layoutY="9.0" prefHeight="26.0" prefWidth="75.0" />
+                <Label layoutX="14.0" layoutY="36.0" text="Money:" />
+                <Label fx:id="money_text" alignment="BOTTOM_LEFT" layoutX="66.0" layoutY="31.0" prefHeight="26.0" prefWidth="75.0" />
             </children>
         </AnchorPane>
+        <AnchorPane fx:id="game_scene" layoutX="-4.0" layoutY="74.0" prefHeight="336.0" prefWidth="608.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <ImageView fx:id="enemy_image" fitHeight="150.0" fitWidth="200.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="14.0" layoutY="175.0" text="Оппонент" />
+            <Label fx:id="enemy_text" layoutX="86.0" layoutY="175.0" prefHeight="18.0" prefWidth="124.0" />
+            <Label layoutX="14.0" layoutY="193.0" text="Жизни" />
+            <Label fx:id="enemy_xp" layoutX="86.0" layoutY="193.0" prefHeight="18.0" prefWidth="124.0" />
+            <AnchorPane layoutX="408.0" layoutY="136.0" prefHeight="50.0" prefWidth="200.0">
+               <children>
+                      <Button fx:id="back_btn" layoutX="42.0" layoutY="160.0" mnemonicParsing="false" text="Бежать с позором" />
+                  <Button fx:id="fight_btn" layoutX="73.0" layoutY="87.0" mnemonicParsing="false" text="Биться" />
+                  <Button fx:id="shop_btn" layoutX="68.0" layoutY="123.0" mnemonicParsing="false" text="Магазин" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

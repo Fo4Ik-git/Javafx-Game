@@ -36,5 +36,6 @@
          </font>
       </Label>
       <TextField fx:id="old_pass" layoutX="278.0" layoutY="350.0" promptText="Введите старый пароль" />
+      <Button fx:id="del_user" layoutX="26.0" layoutY="350.0" mnemonicParsing="false" text="Удалить аккаунт" />
    </children>
 </AnchorPane>

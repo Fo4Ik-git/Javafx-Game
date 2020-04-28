@@ -34,7 +34,7 @@ public class DBHelper {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(
-                     "jdbc:sqlite:btb.db");
+                    "jdbc:sqlite:btb.db");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -53,12 +53,12 @@ public class DBHelper {
 
     }
 
-    public void delUser(String login) {
+    public void delUser(int id) {
         try {
             String DELETE_USER = "DELETE FROM users" +
-                    "WHERE login = '" + login + "';";
-            Statement statment = connection.createStatement();
-            statment.executeUpdate(DELETE_USER);
+                    " WHERE id = " + id + ";";
+            statement = connection.createStatement();
+            statement.executeUpdate(DELETE_USER);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -76,8 +76,8 @@ public class DBHelper {
                     "       money\n" +
                     "  FROM users WHERE login = '" + login + "';";
 
-            Statement statment = connection.createStatement();
-            ResultSet rs = statment.executeQuery(GET_INFO_USER);
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(GET_INFO_USER);
             while (rs.next()) {
                 list.add(rs.getString("id"));
                 list.add(rs.getString("login"));
@@ -122,12 +122,38 @@ public class DBHelper {
         try {
             String UPDATE_LOGIN =
                     "UPDATE users" +
-                    " SET login = '" + new_login + "'" +
-                    " WHERE id = '" + id + "';";
-            Statement statment = connection.createStatement();
-            statment.executeUpdate(UPDATE_LOGIN);
+                            " SET login = '" + new_login + "'" +
+                            " WHERE id = '" + id + "';";
+            statement = connection.createStatement();
+            statement.executeUpdate(UPDATE_LOGIN);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void updatePswd(Integer id, String new_pswd) {
+        try {
+            String UPDATE_PSWD =
+                    "UPDATE users" +
+                            " SET password = '" + new_pswd + "'" +
+                            " WHERE id = '" + id + "';";
+            statement = connection.createStatement();
+            statement.executeUpdate(UPDATE_PSWD);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void update(String whatUpdate, int new_count, int id) {
+        try {
+            String UPDATE =
+                    "UPDATE users" +
+                            " SET " + whatUpdate + " = '" + new_count + "'" +
+                            " WHERE id = '" + id + "';";
+            statement = connection.createStatement();
+            statement.executeUpdate(UPDATE);
+        } catch (Exception e) {
+            e.getMessage();
         }
     }
 

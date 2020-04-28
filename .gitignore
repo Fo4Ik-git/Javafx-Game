@@ -1,6 +1,5 @@
 .idea
 out
-Game.iml
 META-INF
 src/com/fo4ik/db/sqlite3.exe
 tmp.btb

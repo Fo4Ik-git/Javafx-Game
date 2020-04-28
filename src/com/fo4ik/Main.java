@@ -32,7 +32,7 @@ public class Main extends Application {
             dbHelper.createDB();
             dbHelper.close();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.getMessage();
         }
 
         launch(args);
