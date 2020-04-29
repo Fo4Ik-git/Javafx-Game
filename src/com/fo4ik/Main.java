@@ -17,7 +17,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Controls/main.fxml"));
         primaryStage.setTitle("BtB");
         primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.show();
 
 

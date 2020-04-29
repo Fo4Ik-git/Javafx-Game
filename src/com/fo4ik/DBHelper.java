@@ -10,19 +10,21 @@ import java.util.Scanner;
 public class DBHelper {
 
 
-    Connection connection;
     public Statement statement;
+    Connection connection;
 
     public void createDB() throws SQLException {
         File file = new File("btb.db");
 
         String CRAETE = "CREATE TABLE users (\n" +
                 "    id       INTEGER      PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
-                "    login    VARCHAR (30) NOT NULL,\n" +
+                "    login    VARCHAR (30) NOT NULL UNIQUE,\n" +
                 "    password VARCHAR (30) NOT NULL,\n" +
-                "    xp       INT          NOT NULL,\n" +
-                "    lvl      INT          NOT NULL,\n" +
-                "    money    INT          NOT NULL\n" +
+                "    xp       VARCHAR          NOT NULL,\n" +
+                "    lvl      VARCHAR          NOT NULL,\n" +
+                "    money    VARCHAR          NOT NULL,\n" +
+                "    lang    VARCHAR          NOT NULL,\n" +
+                "    country     VARCHAR NOT NULL" +
                 ")";
         statement = connection.createStatement();
         statement.execute(CRAETE);
@@ -37,18 +39,26 @@ public class DBHelper {
                     "jdbc:sqlite:btb.db");
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            System.out.println("error here opendb");
         }
     }
 
-    public void createUser(String log, String pswd, int xp, int lvl, int money) {
+    public void createUser(String log, String pswd, String xp, String lvl, String money, String lang, String country) {
         try {
-            String INSERT = "INSERT INTO users (login, password, xp, lvl, money) " +
-                    "VALUES ('" + log + "', '" + pswd + "', '" + xp + "', '" + lvl + "', '" + money + "');";
+            String INSERT = "INSERT INTO users (login, password, xp, lvl, money, lang, country) " +
+                    "VALUES (              '" + log + "',\n" +
+                    "                      '" + pswd + "',\n" +
+                    "                      '" + xp + "',\n" +
+                    "                      '" + lvl + "',\n" +
+                    "                      '" + money + "',\n" +
+                    "                      '" + lang + "',\n" +
+                    "                      '" + country + "');";
             statement = connection.createStatement();
             statement.executeUpdate(INSERT);
 
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
+            System.out.println("Error here");
         }
 
     }
@@ -69,12 +79,14 @@ public class DBHelper {
         ArrayList<String> list = new ArrayList<>();
         try {
             String GET_INFO_USER = "SELECT id,\n" +
-                    "       login,\n" +
-                    "       password,\n" +
-                    "       xp,\n" +
-                    "       lvl,\n" +
-                    "       money\n" +
-                    "  FROM users WHERE login = '" + login + "';";
+                    " login,\n" +
+                    " password,\n" +
+                    " xp,\n" +
+                    " lvl,\n" +
+                    " money,\n" +
+                    " lang,\n" +
+                    " country\n" +
+                    " FROM users WHERE login = '" + login + "';";
 
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(GET_INFO_USER);
@@ -82,12 +94,11 @@ public class DBHelper {
                 list.add(rs.getString("id"));
                 list.add(rs.getString("login"));
                 list.add(rs.getString("password"));
-                int xp = rs.getInt("xp");
-                int lvl = rs.getInt("lvl");
-                int money = rs.getInt("money");
-                list.add(Integer.toString(xp));
-                list.add(Integer.toString(lvl));
-                list.add(Integer.toString(money));
+                list.add(rs.getString("xp"));
+                list.add(rs.getString("lvl"));
+                list.add(rs.getString("money"));
+                list.add(rs.getString("lang"));
+                list.add(rs.getString("country"));
             }
 
         } catch (Exception e) {
@@ -144,7 +155,7 @@ public class DBHelper {
         }
     }
 
-    public void update(String whatUpdate, int new_count, int id) {
+    public void update(String whatUpdate, String new_count, int id) {
         try {
             String UPDATE =
                     "UPDATE users" +

@@ -30,6 +30,9 @@ public class SgnUpController {
     private PasswordField pswd_input;
 
     @FXML
+    private Label singup_text;
+
+    @FXML
     private Button signup_button;
 
     @FXML
@@ -39,7 +42,15 @@ public class SgnUpController {
     private Label errors;
 
     @FXML
+    private Button go_to_login_button;
+
+    ResourceBundle bundleDefault = ResourceBundle.getBundle("Language");
+
+
+    @FXML
     void initialize() {
+        lang();
+
 
 
         signup_button.setOnAction(event -> {
@@ -48,27 +59,28 @@ public class SgnUpController {
                 if (pswd_input.getText().equals(pswd_input2.getText())) {
                     try {
                         dbHelper.openDB();
-                        dbHelper.createUser(login_input.getText().trim(), pswd_input.getText().trim(), 10, 0, 100);
+                        dbHelper.createUser(login_input.getText().trim(), pswd_input.getText().trim(), "10", "0", "100", "en", "US");
                         dbHelper.close();
-                    } catch (Exception e){
+                        ToMain(event);
+                    } catch (Exception e) {
                         errors.setText("Пользователь уже создан");
                     }
-                    try {
-                        ToMain(event);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }else {
+                } else {
                     errors.setText("Incorrect passwords");
                 }
             } else {
                 errors.setText("Empty input");
             }
-
-
         });
 
 
+    }
+
+
+    public void lang() {
+        signup_button.setText("Sign Up");
+        go_to_login_button.setText("Log in");
+        singup_text.setText("Register");
     }
 
     @FXML

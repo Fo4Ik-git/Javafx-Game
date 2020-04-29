@@ -21,38 +21,42 @@ import java.util.ResourceBundle;
 
 
 public class Controller {
-    private Stage stage;
+    ArrayList<String> list;
 
+    ResourceBundle bundleDefault = ResourceBundle.getBundle("Language");
+
+    private Stage stage;
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private TextField login_input;
-
     @FXML
     private PasswordField psw_input;
-
     @FXML
     private Button login_btn;
-
     @FXML
     private Button go_to_signup_button;
-
     @FXML
     private Label errors;
-
+    @FXML
+    private Label main_text;
 
     @FXML
     void initialize() {
+
+        lang_en();
+
         login_btn.setOnAction(event -> {
             DBHelper dbHelper = new DBHelper();
-            try {
+
+            /*try {
+
                 dbHelper.openDB();
-                ArrayList<String> list = dbHelper.getInfoUser(login_input.getText().trim());
-                errors.setText(list.get(1));
+
+                list = dbHelper.getInfoUser(login_input.getText().trim());
+                dbHelper.close();
                 if (login_input.getText().trim().equals(list.get(1)) && psw_input.getText().trim().equals(list.get(2))) {
                     File file = new File("tmp.btb");
                     FileWriter fr = new FileWriter("tmp.btb");
@@ -61,13 +65,39 @@ public class Controller {
 
                     ToGame(event);
                 } else {
-                    errors.setText("Неверные данные");
+                    errors.setText("Error data");
                 }
-                dbHelper.close();
             } catch (Exception e) {
+               // errors.setText("Error");
+            }*/
+
+            dbHelper.openDB();
+            list = dbHelper.getInfoUser(login_input.getText().trim());
+            try {
+                if (login_input.getText().trim().equals(list.get(1)) && psw_input.getText().trim().equals(list.get(2))) {
+                    File file = new File("tmp.btb");
+                    FileWriter fr = new FileWriter("tmp.btb");
+                    fr.write(list.get(1));
+                    fr.close();
+
+                    ToGame(event);
+                } else {
+                    errors.setText("Error data");
+                }
+            } catch (Exception e){
                 System.out.println(e.getMessage());
             }
+            errors.setText("Here work");
+
         });
+
+
+    }
+
+    public void lang_en() {
+        login_btn.setText("Join");
+        main_text.setText("Authorize");
+        go_to_signup_button.setText("Register");
     }
 
 

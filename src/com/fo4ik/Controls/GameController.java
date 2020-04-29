@@ -14,54 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class GameController {
-
-
-    @FXML
-    private Button play_btn;
-
-    @FXML
-    private Button settings_btn;
-
-    @FXML
-    private Button shop_btn_main;
-
-    @FXML
-    private Label xp_text;
-
-    @FXML
-    private Label lvl_text;
-
-    @FXML
-    private AnchorPane instruction_bg;
-
-    @FXML
-    private Label instruction;
-
-    @FXML
-    private Label name_text;
-
-    @FXML
-    private Label money_text;
-
-    @FXML
-    private AnchorPane game_scene;
-
-    @FXML
-    private ImageView enemy_image;
-
-    @FXML
-    private Label enemy_text;
-
-    @FXML
-    private Label enemy_xp;
-
-    @FXML
-    private Button back_btn;
-
-    @FXML
-    private Button fight_btn;
 
 
     public String login;
@@ -70,13 +26,47 @@ public class GameController {
     String lvl = "lvl";
     ArrayList<String> list;
 
+    ResourceBundle bundle = ResourceBundle.getBundle("Language");
+    @FXML
+    private Button play_btn;
+    @FXML
+    private Button settings_btn;
+    @FXML
+    private Button shop_btn_main;
+    @FXML
+    private Label xp_text;
+    @FXML
+    private Label lvl_text;
+    @FXML
+    private AnchorPane instruction_bg;
+    @FXML
+    private Label instruction;
+    @FXML
+    private Label name_text;
+    @FXML
+    private Label money_text;
+    @FXML
+    private AnchorPane game_scene;
+    @FXML
+    private ImageView enemy_image;
+    @FXML
+    private Label enemy_text;
+    @FXML
+    private Label enemy_xp;
+    @FXML
+    private Button back_btn;
+    @FXML
+    private Button fight_btn;
+
     @FXML
     void initialize() {
         DBHelper dbHelper = new DBHelper();
         dbHelper.openDB();
         login = dbHelper.returnLogin();
-         list = dbHelper.getInfoUser(login);
-
+        list = dbHelper.getInfoUser(login);
+        System.out.println(list.get(7));
+        bundle = ResourceBundle.getBundle("Language", new Locale(list.get(6), list.get(7)));
+        lang();
 
         //Show stats
         name_text.setText(list.get(1));
@@ -112,11 +102,11 @@ public class GameController {
                 if (money_int >= 10) {
                     int send_money = money_int - 10;
                     dbHelper.openDB();
-                    dbHelper.update(money, send_money, Integer.parseInt(list.get(0)));
+                    dbHelper.update(money, Integer.toString(send_money), Integer.parseInt(list.get(0)));
                     dbHelper.close();
                 } else {
                     dbHelper.openDB();
-                    dbHelper.update(money, 0, Integer.parseInt(list.get(0)));
+                    dbHelper.update(money, "0", Integer.parseInt(list.get(0)));
                     dbHelper.close();
                 }
                 initialize();
@@ -126,6 +116,16 @@ public class GameController {
             }
         });
         dbHelper.close();
+    }
+
+    public void lang() {
+        play_btn.setText(bundle.getString("game_btn_play"));
+        settings_btn.setText(bundle.getString("game_btn_settings"));
+        shop_btn_main.setText(bundle.getString("game_shop_btn_main"));
+
+
+        //settings_btn.setText(en.text("game_btn_settings"));
+        //shop_btn_main.setText(en.text("game_btn_shop"));
     }
 
 
