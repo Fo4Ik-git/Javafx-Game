@@ -22,6 +22,7 @@ public class Main extends Application {
 
 
     }
+    // Создание сцены
 
 
     public static void main(String[] args) {
@@ -37,4 +38,6 @@ public class Main extends Application {
 
         launch(args);
     }
+
+    //Создание БД
 }

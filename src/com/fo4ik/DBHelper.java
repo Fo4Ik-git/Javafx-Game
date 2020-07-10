@@ -31,6 +31,7 @@ public class DBHelper {
 
 
     }
+    //Создание данных таблицы в бд
 
     public void openDB() {
         try {
@@ -42,6 +43,7 @@ public class DBHelper {
             System.out.println("error here opendb");
         }
     }
+    //Подключение к плагину бд
 
     public void createUser(String log, String pswd, String xp, String lvl, String money, String lang, String country) {
         try {
@@ -62,6 +64,7 @@ public class DBHelper {
         }
 
     }
+    // Создание информации пользователя в таблице
 
     public void delUser(int id) {
         try {

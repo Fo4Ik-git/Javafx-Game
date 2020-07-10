@@ -61,6 +61,7 @@ public class SettingsControll {
         dbHelper.close();
         bundle = ResourceBundle.getBundle("Language", new Locale(list.get(6), list.get(7)));
         lang();
+        // При запуске инициализирует изык пользователя и логин
 
 
         back.setOnAction(event -> {
